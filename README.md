@@ -15,16 +15,16 @@ This PowerShell script resets the group policies on a Windows client to their de
 3. Run the script using the following command:
 
 ```powershell
-.\Reset-GroupPolicy.ps1 [-VerboseLogging] [-Help]
+.\Reset-GroupPolicy.ps1 [-Verbose] [-Help]
 ```
 
 ## Command-Line options
-* `-VerboseLogging`: Enable verbose logging. When this switch is used, the script will print detailed information about its progress to the console.  
+* `-Verbose`: Enable verbose logging. When this switch is used, the script will print detailed information about its progress to the console.  
 * `-Help`: Show a help message with a description of the command-line options.
 
 ## Example
 To run the script with verbose logging, use the following command:
 
 ```powershell
-.\Reset-GroupPolicy.ps1 -VerboseLogging
+.\Reset-GroupPolicy.ps1 -Verbose
 ```
