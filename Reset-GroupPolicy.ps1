@@ -36,7 +36,10 @@ function Write-VerboseLog {
     )
     
     if ($VerboseLogging) {
+        $originalVerbosePreference = $VerbosePreference
+        $VerbosePreference = 'Continue'
         Write-Verbose $Message
+        $VerbosePreference = $originalVerbosePreference
     }
 }
 
