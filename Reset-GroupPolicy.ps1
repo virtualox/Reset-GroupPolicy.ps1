@@ -1,15 +1,42 @@
+<#
+.SYNOPSIS
+This script resets the local group policy objects to their default state.
+
+.DESCRIPTION
+Reset-GroupPolicy.ps1 will delete the local group policy objects and force a group policy update. It will also log an event to the Event Viewer indicating the reset has been completed.
+
+.PARAMETER VerboseLogging
+Enable verbose logging.
+
+.PARAMETER Help
+Show the help message.
+
+.EXAMPLE
+.\Reset-GroupPolicy.ps1 -VerboseLogging
+
+This example will run the script with verbose logging enabled.
+
+.EXAMPLE
+.\Reset-GroupPolicy.ps1 -Help
+
+This example will display the help message.
+#>
+
+[CmdletBinding()]
 param (
     [switch]$VerboseLogging,
     [switch]$Help
 )
 
 function Write-VerboseLog {
+    [CmdletBinding()]
     param (
+        [Parameter(Mandatory=$true)]
         [string]$Message
     )
-
+    
     if ($VerboseLogging) {
-        Write-Host $Message
+        Write-Verbose $Message
     }
 }
 
@@ -20,7 +47,6 @@ Reset-GroupPolicy.ps1 [-VerboseLogging] [-Help]
 -VerboseLogging : Enable verbose logging
 -Help           : Show this help message
 "@
-
     Write-Host $helpText
 }
 
@@ -41,7 +67,7 @@ try {
     Remove-Item -Path "${env:windir}\System32\GroupPolicy" -Recurse -Force -ErrorAction SilentlyContinue
 
     Write-VerboseLog "Updating group policy..."
-    gpupdate /force
+    Invoke-Expression -Command 'gpupdate /force'
 
     Write-VerboseLog "Writing event to Event Viewer..."
     $EventLog = New-Object -TypeName System.Diagnostics.EventLog -ArgumentList "Application"
